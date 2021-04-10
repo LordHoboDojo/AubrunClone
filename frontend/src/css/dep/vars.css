@@ -1,0 +1,12 @@
+:root {
+    --light0: #F7E3AF;
+    --light1: #E53D00;
+    --light1a: #e53d00c4;
+
+    --color0: var(--light0);
+    --color1: var(--light1);
+    --color1a: var(--light1a);
+}
+body {
+    background-color: var(--color0);
+}

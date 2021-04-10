@@ -1,0 +1,19 @@
+@import url('./dep/vars.css');
+#search-bar {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#search-input, #search-input::placeholder {
+    margin: 0;
+    border-color: transparent;
+    border-radius: 15px;
+    font-size: 5vw;
+    color: var(--color1);
+    text-align: center;
+    outline: none;
+}
+#search-input::placeholder {
+    color: var(--color1a);
+}
