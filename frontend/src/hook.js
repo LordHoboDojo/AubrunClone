@@ -1,6 +1,6 @@
 import axios from 'axios'
 const ip = '99.125.121.169'
-const port = '3100'
+const port = '80'
 export async function getInformation(place) {
     const dat = {}
     const coords = {}
