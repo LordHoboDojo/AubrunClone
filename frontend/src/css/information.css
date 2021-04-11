@@ -21,6 +21,12 @@
     color: var(--gray1);
     cursor: pointer;
 }
+#info-covid {
+    margin: 1vh 1vw;
+    text-align: center;
+    font-size: 1.5vw;
+    color: var(--gray1);
+}
 .info-title {
     margin: 6vh 1vw 2vh;
     font-size: 4vw;
@@ -40,11 +46,11 @@
     padding: 10px 13px;
     border-radius: 11px;
     background-color: var(--color2bt);
-    font-size: 1.4vw;
+    font-size: 1.5vw;
     color: var(--gray2);
     min-width: 20vw;
-    min-height: 8vw;
-    max-width: 70vw;
+    min-height: 14vw;
+    max-width: 80vw;
 }
 .info-container-item food {
     font-size: 1.2vw;

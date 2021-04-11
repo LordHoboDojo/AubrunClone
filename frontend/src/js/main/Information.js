@@ -1,7 +1,7 @@
 import React, { Component, CSSProperties } from 'react'
 import '../../css/information.css'
 function parseDate(raw) {
-    // 2021-4-10T17:00:00
+    if (!raw) return 'N/A'
     const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     const times = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     const arr = raw.split('T')
@@ -9,7 +9,7 @@ function parseDate(raw) {
     const t = arr[1]
     const date_arr = d.split('-')
     const time_arr = t.split(":")
-    const time = `${times[parseInt(time_arr[0]) % 12]}:${time_arr[1]} ${(parseInt(time_arr[0]) >= 12) ? "PM" : "AM"}`
+    const time = `${times[parseInt(time_arr[0]) % 12]}:${time_arr[1]}${(parseInt(time_arr[0]) >= 12) ? "PM" : "AM"}`
     const date = `${month[parseInt(date_arr[1]) - 1]} ${parseInt(date_arr[2])} ${time}`
     return date
 }
@@ -26,8 +26,8 @@ export class Flight extends Component {
                 <div className='flight-from'><b style={{ color: 'var(--gray1)' }}>From</b><span style={{ float: 'right' }}>{data.from}</span></div>
                 <div className='flight-to'><b style={{ color: 'var(--gray1)' }}>To</b><span style={{ float: 'right' }}>{data.to}</span></div>
                 <div className='flight-dtime'><b style={{ color: 'var(--gray1)' }}>Departure</b><span style={{ float: 'right' }}>{parseDate(data.dtime)}</span></div>
-                <div className='flight-atime'><b style={{ color: 'var(--gray1)' }}>Arrival</b><span style={{ float: 'right' }}>{parseDate(data.atime)}</span></div>
                 <div className='flight-price'><b style={{ color: 'var(--gray1)' }}>Price</b><span style={{ float: 'right' }}>{data.price}</span></div>
+                <div className='flight-price'><b style={{ color: 'var(--gray1)' }}>ID</b><span style={{ float: 'right' }}>{data.number}</span></div>
             </div>
         )
     }
@@ -108,7 +108,8 @@ export default class Information extends Component {
         const food = []
         let i = 0
         for (let flight of data.flights) {
-            flights.push(<Flight key={`flight_${i}`} carrier={flight.carrier} from={flight.from} to={flight.to} dtime={flight.dtime} atime={flight.atime} price={flight.price}/>);
+            if (i >= 7) break
+            flights.push(<Flight key={`flight_${i}`} carrier={flight.airline} from={flight.departureAirport} to={flight.destinationAirport} dtime={flight.departureTime} price={flight.price} number={flight.flightNumber}/>);
             i += 1
         }
         i = 0
@@ -135,6 +136,7 @@ export default class Information extends Component {
                 <div id='info-coords' onClick={() => {
                     window.open(`https://www.google.com/search?q=${`${data.coords.lat}°, ${data.coords.lng}°`}`, '_blank')
                 }}>{data.coords.lat}°, {data.coords.lng}°</div>
+                <div id='info-covid'>266940+ Active Covid Cases, 101032 per million</div>
                 <div className='info-title'>Available Flights</div>
                 <div id='info-flights' className='info-container'>{flights}</div>
                 <div className='info-title'>Available Hotels</div>
