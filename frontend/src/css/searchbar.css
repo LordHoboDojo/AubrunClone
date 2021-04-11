@@ -4,16 +4,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 90%;
+    height: 100vh;
 }
 #search-input, #search-input::placeholder {
     margin: 0;
     border-color: transparent;
     border-radius: 15px;
+    background-color: var(--color2a);
     font-size: 5vw;
-    color: var(--color1);
     text-align: center;
+    color: var(--gray2);
     outline: none;
 }
 #search-input::placeholder {
-    color: var(--color1a);
+    color: var(--gray1);
 }

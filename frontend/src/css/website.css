@@ -1,11 +1,27 @@
 @import url('./dep/vars.css');
 body {
+    background-image: url('../assets/img/background_0.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     margin: 0;
 }
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-track {
+    background-color: var(--blue0);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: var(--purple1);
+    border-radius: 20px;
+    transition: background-color 0.4s;
+}
+body::-webkit-scrollbar-thumb:hover {
+    background-color: var(--purple0);
+    transition: background-color 0.4s;
+}
 #website {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
     margin: 0;
 }

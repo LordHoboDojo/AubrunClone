@@ -1,6 +1,9 @@
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import Website from './js/Website'
 ReactDOM.render(
-    <Website />,
+    <Router>
+        <Website />
+    </Router>,
     document.getElementById('root')
 )

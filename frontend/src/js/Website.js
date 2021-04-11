@@ -1,5 +1,7 @@
 import { Component } from 'react'
+import { Switch, Route } from 'react-router-dom'
 import SearchBar from './main/Search'
+import Information from './main/Information'
 import '../css/website.css'
 export default class Website extends Component {
     constructor() {
@@ -9,7 +11,11 @@ export default class Website extends Component {
     render() {
         return (
             <div id='website'>
-                <SearchBar />
+                <Switch>
+                    <Route path='/geolocation'><div>ENABLE GEOLOCATION</div></Route>
+                    <Route path='/information' render={(props) => <Information {...props} /> }/>
+                    <Route path='/*'><SearchBar /></Route>
+                </Switch>
             </div>
         )
     }

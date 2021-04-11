@@ -1,12 +1,22 @@
 :root {
+    --white0: #fff;
+    --gray0: #363636;
+    --gray1: #a5a5a5;
+    --gray2: #dfdfdf;
+    --purple0: #330091;
+    --purple1: #4a00d4;
+
     --light0: #F7E3AF;
-    --light1: #E53D00;
-    --light1a: #e53d00c4;
+    --light1a: #E53D00;
+    --light1b: #e53d00c4;
+    --light2a: #000000;
+    --light2at: #000000cc;
+    --light2bt: #000000b2;
 
     --color0: var(--light0);
-    --color1: var(--light1);
     --color1a: var(--light1a);
-}
-body {
-    background-color: var(--color0);
+    --color1b: var(--light1b);
+    --color2a: var(--light2a);
+    --color2at: var(--light2at);
+    --color2bt: var(--light2bt);
 }
