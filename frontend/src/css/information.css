@@ -6,11 +6,12 @@
     background-color: var(--color2at);
     border-color: transparent;
     border-radius: 30px;
+    animation: fade-in 1s;
 }
 #info-loc {
     margin: 1vh 1vw;
     text-align: center;
-    font-size: 4vw;
+    font-size: 6vw;
     color: var(--gray1);
 }
 #info-coords {
@@ -21,7 +22,7 @@
     cursor: pointer;
 }
 .info-title {
-    margin: 2vh 1vw;
+    margin: 6vh 1vw 2vh;
     font-size: 4vw;
     text-align: center;
     color: var(--gray2);

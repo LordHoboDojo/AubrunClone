@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component, CSSProperties } from 'react'
 import '../../css/information.css'
 function parseDate(raw) {
     // 2021-4-10T17:00:00
@@ -39,11 +39,18 @@ export class Hotel extends Component {
     }
     render() {
         const data = this.props;
+        let price = ''
+        for (let i = 0; i < data.pricing; i += 1) {
+            price += '$'
+        }
+        if (price === '') price = 'N/A'
         return (
             <div className='info-container-item hotel'>
-                <div className='hotel-company'><b style={{ color: 'var(--gray1)' }}>Company</b><span style={{ float: 'right' }}>{data.company}</span></div>
-                <div className='hotel-address'><b style={{ color: 'var(--gray1)' }}>Address</b><span style={{ float: 'right' }}>{data.address}</span></div>
-                <div className='hotel-price'><b style={{ color: 'var(--gray1)' }}>Price</b><span style={{ float: 'right' }}>{data.price}</span></div>
+                <div className='hotel-company'><b style={{ color: 'var(--gray1)' }}>Name</b><span style={{ float: 'right' }}>{data.name}</span></div>
+                <div className='hotel-address'><b style={{ color: 'var(--gray1)' }}>Address</b><span style={{ float: 'right', fontSize: '1vw' }}>{data.address}</span></div>
+                <div className='food-rating'><b style={{ color: 'var(--gray1)' }}>Rating</b>   <span style={{ float: 'right' }}>{data.rating}</span></div>
+                <div className='hotel-price'><b style={{ color: 'var(--gray1)' }}>Pricing</b><span style={{ float: 'right' }}>{price}</span></div>
+                <div className='hotel-img' style={{ justifyContent: 'center', margin: 0 }}><img style={{ display: 'block', justifyContent: 'center', margin: 'auto', padding: '15px 0px 5px', width: '90%', height: '40%' }} src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${data.icon}&sensor=false&maxheight=250&maxwidth=300&key=${'AIzaSyBV8lnOmU9codUueVoNsS-zAWflAuUAFaE'}`} alt='img'></img></div>
             </div>
         )
     }
@@ -59,7 +66,7 @@ export class Food extends Component {
         for (let i = 0; i < data.pricing; i += 1) {
             price += '$'
         }
-        if (price === '') price = 'Unavailable'
+        if (price === '') price = 'N/A'
         return (
             <div className='info-container-item food'>
                 <div className='food-name'><b style={{ color: 'var(--gray1)' }}>Name</b>   <span style={{ float: 'right' }}>{data.name}</span></div>
@@ -78,6 +85,15 @@ export default class Information extends Component {
     }
     render() {
         const data = this.props.location.state;
+        data.hotels.sort((a, b) => {
+            if (a.name.length >= 27) return 1
+            if (b.name.length >= 27) return -1
+            if (a.rating !== b.rating) return (a.rating < b.rating) ? 1 : -1
+            const d = 24901.92 / 360
+            let distancea = Math.sqrt(Math.pow(d * (data.coords.lat - a.coords.lat), 2) + Math.pow(d * (data.coords.lng - a.coords.lng), 2))
+            let distanceb = Math.sqrt(Math.pow(d * (data.coords.lat - b.coords.lat), 2) + Math.pow(d * (data.coords.lng - b.coords.lng), 2))
+            return (distancea < distanceb) ? -1 : 1;
+        })
         data.food.sort((a, b) => {
             if (a.name.length >= 27) return 1
             if (b.name.length >= 27) return -1
@@ -97,12 +113,15 @@ export default class Information extends Component {
         }
         i = 0
         for (let hotel of data.hotels) {
-            hotels.push(<Hotel key={`hotel_${i}`} company={hotel.company} address={hotel.address} price={hotel.price} />)
+            if (i >= 6) break
+            console.log(hotel.price_level)
+            console.log(hotel.price_level === undefined)
+            hotels.push(<Hotel key={`hotel_${i}`} name={hotel.name} address={hotel.address} rating={hotel.rating} pricing={hotel.price_level} icon={hotel.icon}/>)
             i += 1
         }
         i = 0
         for (let r of data.food) {
-            if (i >= 12) break
+            if (i >= 6) break
             const d = 24901.92 / 360
 
             let distance = Math.sqrt(Math.pow(d * (data.coords.lat - r.coords.lat), 2) + Math.pow(d * (data.coords.lng - r.coords.lng), 2))
@@ -112,7 +131,7 @@ export default class Information extends Component {
         }
         return (
             <div id='information'>
-                <div id='info-loc'>{data.location}</div>
+                <div id='info-loc'>Travel Information</div>
                 <div id='info-coords' onClick={() => {
                     window.open(`https://www.google.com/search?q=${`${data.coords.lat}°, ${data.coords.lng}°`}`, '_blank')
                 }}>{data.coords.lat}°, {data.coords.lng}°</div>

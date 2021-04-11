@@ -33,13 +33,7 @@ export default class SearchBar extends Component {
                             price: '$350'
                         }
                     ],
-                    hotels: [
-                        {
-                            company: 'Hilton Company',
-                            address: '1234 Street Road',
-                            price: '$150'
-                        }
-                    ],
+                    hotels: dat.hotels,
                     food: dat.restaurants
                 }
             })

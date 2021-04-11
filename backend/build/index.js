@@ -12,11 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.apiKey = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const body_parser_1 = __importDefault(require("body-parser"));
+//import { getFlights,getFlights2 } from './api/skyscanner'
 const places_1 = require("./api/places");
+const hotels_1 = require("./api/hotels");
+exports.apiKey = 'AIzaSyBV8lnOmU9codUueVoNsS-zAWflAuUAFaE';
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
@@ -28,7 +32,8 @@ app.post('/api/info', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send({ code: -1 });
     }
     const restaurants = yield places_1.getRestaurants(coords);
-    res.send({ code: 0, coords, restaurants });
+    const hotels = yield hotels_1.getHotels(coords);
+    res.send({ code: 0, coords, restaurants, hotels });
 }));
 app.get('/*', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../../frontend/build', 'index.html'));

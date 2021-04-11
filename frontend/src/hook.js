@@ -5,8 +5,9 @@ export async function getInformation(place) {
     const dat = {}
     await axios.post(`http://${ip}:${port}/api/info`, { place: place }).then(data => {
         dat.code = data.data.code
-        dat.restaurants = data.data.restaurants
         dat.coords = data.data.coords
+        dat.hotels = data.data.hotels
+        dat.restaurants = data.data.restaurants
     })
     return dat
 }

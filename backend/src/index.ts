@@ -2,8 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import bodyParser from 'body-parser'
-import { getFlights,getFlights2 } from './api/skyscanner'
+//import { getFlights,getFlights2 } from './api/skyscanner'
 import { getCoordinates, getRestaurants } from './api/places'
+import { getHotels } from './api/hotels';
+export let apiKey = 'AIzaSyBV8lnOmU9codUueVoNsS-zAWflAuUAFaE'
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,7 +17,8 @@ app.post('/api/info', async (req, res) => {
         res.send({ code: -1 })
     }
     const restaurants = await getRestaurants(coords)
-    res.send({ code: 0, coords, restaurants })
+    const hotels = await getHotels(coords)
+    res.send({ code: 0, coords, restaurants, hotels })
 })
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));

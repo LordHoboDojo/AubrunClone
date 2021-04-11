@@ -6,9 +6,11 @@
     justify-content: center;
     opacity: 0.9;
     height: 100vh;
+    animation: fade-in 0.75s;
 }
 #search-input, #search-input::placeholder {
     margin: 0;
+    padding: 10px 20px;
     border-color: transparent;
     border-radius: 80px;
     background-color: var(--color2a);
@@ -16,6 +18,7 @@
     text-align: center;
     color: var(--gray2);
     outline: none;
+    font-family: Rock;
 }
 #search-input::placeholder {
     color: var(--gray1);
