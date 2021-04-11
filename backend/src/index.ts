@@ -23,7 +23,7 @@ app.post('/api/info', async (req, res) => {
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));
 })
-app.listen(3100, () => {
+app.listen(8080, () => {
     console.log('Starting API on port 3100...');
 });
 
