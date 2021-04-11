@@ -1,0 +1,38 @@
+@import url('./dep/vars.css');
+#information {
+    justify-content: center;
+    margin: 1vw;
+    background-color: var(--color2at);
+    border-color: transparent;
+    border-radius: 30px;
+}
+#info-loc {
+    margin: 1vh 1vw;
+    text-align: center;
+    font-size: 4vw;
+    color: var(--gray1);
+}
+.info-title {
+    margin: 2vh 1vw;
+    font-size: 4vw;
+    text-align: center;
+    color: var(--gray2);
+}
+.info-container {
+    clear: both;
+    display: flex;
+    justify-content: center;
+    margin: 20px 1.4vw;
+}
+.info-container-item {
+    clear: both;
+    margin: 10px;
+    padding: 10px 13px;
+    border-radius: 11px;
+    background-color: var(--color2bt);
+    font-size: 1.4vw;
+    color: var(--gray2);
+    min-width: 20vw;
+    min-height: 8vw;
+    max-width: 50vw;
+}
