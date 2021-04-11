@@ -9,4 +9,20 @@ export async function getFlights(country: string, currency: string, locale: stri
   toReturn = { ...toReturn }
   console.log(toReturn)
 }
-
+export async function getFlights2(originPlace: string,destinationPlace: string,departureDate: string,returnDate: string,airlineCode: string){
+  var options = {
+    headers : {
+        "type": "amadeusOAuth2Token",
+            "username": "kkshaunak@gmail.com",
+            "application_name": "HackathonAuburn",
+            "client_id": "SFDyOxzjqFubii6ZudPlg0Him1yZ5fsp",
+            "token_type": "Bearer",
+            "access_token": "kE9s3zLaAaIcnAe1FwLLYmOCMWXu",
+            "expires_in": 1799,
+            "state": "approved",
+            "scope": ""
+  }};
+  axios.get(`https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originPlace}&destinationLocationCode=${destinationPlace}&departureDate=${departureDate}&adults=1&includedAirlineCodes=${airlineCode}&max=10`, options).then((data:any) =>{
+    console.log(data);
+  });
+}

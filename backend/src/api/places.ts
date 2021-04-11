@@ -1,7 +1,7 @@
 import axios from 'axios'
 const key = 'AIzaSyBV8lnOmU9codUueVoNsS-zAWflAuUAFaE'
 
-interface Coords {
+export interface Coords {
   lat: number;
   lng: number;
 }
