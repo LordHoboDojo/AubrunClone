@@ -69,6 +69,6 @@ app.post('/api/info', (req, res) => __awaiter(void 0, void 0, void 0, function* 
 app.get('/*', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../../frontend/build', 'index.html'));
 });
-app.listen(3100, () => {
+app.listen(80, () => {
     console.log('Starting API on port 3100...');
 });
