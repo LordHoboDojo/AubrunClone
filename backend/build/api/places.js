@@ -41,6 +41,8 @@ function getRestaurants(coords) {
                 entry.coords.lat = key.geometry.location.lat;
                 entry.coords.lng = key.geometry.location.lng;
                 entry.icon = key.photos[0].photo_reference;
+                console.log("NEW ENTRY");
+                console.log(entry.icon);
                 entry.price_level = key.price_level;
                 entry.rating = key.rating;
                 dat.push(entry);

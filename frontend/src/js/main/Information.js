@@ -55,11 +55,18 @@ export class Food extends Component {
     }
     render() {
         const data = this.props;
+        let price = ''
+        for (let i = 0; i < data.pricing; i += 1) {
+            price += '$'
+        }
+        if (price === '') price = 'Unavailable'
         return (
             <div className='info-container-item food'>
-                <div className='food-name'><b style={{ color: 'var(--gray1)' }}>Restaurant</b><span style={{ float: 'right' }}>{data.restaurant}</span></div>
-                <div className='food-distance'><b style={{ color: 'var(--gray1)' }}>Distance</b><span style={{ float: 'right' }}>{data.distance}</span></div>
-                <div className='food-rating'><b style={{ color: 'var(--gray1)' }}>Rating</b><span style={{ float: 'right' }}>{data.rating}</span></div>
+                <div className='food-name'><b style={{ color: 'var(--gray1)' }}>Name</b>   <span style={{ float: 'right' }}>{data.name}</span></div>
+                <div className='food-distance'><b style={{ color: 'var(--gray1)' }}>Distance</b>   <span style={{ float: 'right' }}>{data.distance}</span></div>
+                <div className='food-rating'><b style={{ color: 'var(--gray1)' }}>Rating</b>   <span style={{ float: 'right' }}>{data.rating}</span></div>
+                <div className='food-price'><b style={{ color: 'var(--gray1)' }}>Pricing</b>   <span style={{ float: 'right' }}>{price}</span></div>
+                <div className='food-img' style={{ justifyContent: 'center', margin: 0 }}><img style={{ display: 'block', justifyContent: 'center', margin: 'auto', padding: '15px 0px 5px', width: '90%', height: '40%' }} src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${data.icon}&sensor=false&maxheight=250&maxwidth=300&key=${'AIzaSyBV8lnOmU9codUueVoNsS-zAWflAuUAFaE'}`} alt='img'></img></div>
             </div>
         )
     }
@@ -71,6 +78,15 @@ export default class Information extends Component {
     }
     render() {
         const data = this.props.location.state;
+        data.food.sort((a, b) => {
+            if (a.name.length >= 27) return 1
+            if (b.name.length >= 27) return -1
+            if (a.rating !== b.rating) return (a.rating < b.rating) ? 1 : -1
+            const d = 24901.92 / 360
+            let distancea = Math.sqrt(Math.pow(d * (data.coords.lat - a.coords.lat), 2) + Math.pow(d * (data.coords.lng - a.coords.lng), 2))
+            let distanceb = Math.sqrt(Math.pow(d * (data.coords.lat - b.coords.lat), 2) + Math.pow(d * (data.coords.lng - b.coords.lng), 2))
+            return (distancea < distanceb) ? -1 : 1;
+        })
         const flights = []
         const hotels = []
         const food = []
@@ -86,18 +102,20 @@ export default class Information extends Component {
         }
         i = 0
         for (let r of data.food) {
-            food.push(<Food key={`food_${i}`} restaurant={r.restaurant} distance={r.distance} rating={r.rating}/>)
+            if (i >= 12) break
+            const d = 24901.92 / 360
+
+            let distance = Math.sqrt(Math.pow(d * (data.coords.lat - r.coords.lat), 2) + Math.pow(d * (data.coords.lng - r.coords.lng), 2))
+            distance = `${distance.toFixed(2)} mi`
+            food.push(<Food key={`food_${i}`} name={r.name} distance={distance} rating={r.rating} pricing={r.price_level} icon={r.icon}/>)
             i += 1
         }
         return (
             <div id='information'>
-                {/*
-                Title (location)
-                Flight Information (scrolling list horizontally)
-                Hotel Information (scrolling list horizontally)
-                Restaurant Information (scrolling list horizontally)
-                */}
                 <div id='info-loc'>{data.location}</div>
+                <div id='info-coords' onClick={() => {
+                    window.open(`https://www.google.com/search?q=${`${data.coords.lat}°, ${data.coords.lng}°`}`, '_blank')
+                }}>{data.coords.lat}°, {data.coords.lng}°</div>
                 <div className='info-title'>Available Flights</div>
                 <div id='info-flights' className='info-container'>{flights}</div>
                 <div className='info-title'>Available Hotels</div>

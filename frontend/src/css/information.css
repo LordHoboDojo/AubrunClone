@@ -2,6 +2,7 @@
 #information {
     justify-content: center;
     margin: 1vw;
+    padding: 10px 10px 30px;
     background-color: var(--color2at);
     border-color: transparent;
     border-radius: 30px;
@@ -12,6 +13,13 @@
     font-size: 4vw;
     color: var(--gray1);
 }
+#info-coords {
+    margin: 1vh 1vw;
+    text-align: center;
+    font-size: 2vw;
+    color: var(--gray1);
+    cursor: pointer;
+}
 .info-title {
     margin: 2vh 1vw;
     font-size: 4vw;
@@ -21,6 +29,7 @@
 .info-container {
     clear: both;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin: 20px 1.4vw;
 }
@@ -34,5 +43,9 @@
     color: var(--gray2);
     min-width: 20vw;
     min-height: 8vw;
-    max-width: 50vw;
+    max-width: 70vw;
+}
+.info-container-item food {
+    font-size: 1.2vw;
+    min-width: 30vw;
 }
